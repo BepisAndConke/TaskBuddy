@@ -5,12 +5,9 @@ import lombok.AllArgsConstructor;
 import nl.fontys.TaskBuddy.business.interf.CreateTaskUseCase;
 import nl.fontys.TaskBuddy.business.interf.GetUserTaskSingleUseCase;
 import nl.fontys.TaskBuddy.business.interf.GetUserTasksUseCase;
-import nl.fontys.TaskBuddy.domain.requests.CreateTaskRequest;
-import nl.fontys.TaskBuddy.domain.requests.GetUserTaskSingleRequest;
-import nl.fontys.TaskBuddy.domain.requests.GetUserTasksRequest;
-import nl.fontys.TaskBuddy.domain.responses.CreateTaskResponse;
-import nl.fontys.TaskBuddy.domain.responses.GetUserTaskSingleResponse;
-import nl.fontys.TaskBuddy.domain.responses.GetUserTasksResponse;
+import nl.fontys.TaskBuddy.business.interf.UpdateTaskUseCase;
+import nl.fontys.TaskBuddy.domain.requests.*;
+import nl.fontys.TaskBuddy.domain.responses.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +20,7 @@ public class TasksController {
     private final CreateTaskUseCase createTaskUseCase;
     private final GetUserTasksUseCase getUserTasksUseCase;
     private final GetUserTaskSingleUseCase getUserTaskSingleUseCase;
+    private final UpdateTaskUseCase updateTaskUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<CreateTaskResponse> createTask(@RequestBody @Valid CreateTaskRequest request,
@@ -43,5 +41,15 @@ public class TasksController {
         GetUserTaskSingleResponse response = getUserTaskSingleUseCase.getUserTask(new GetUserTaskSingleRequest(
                 userId, Long.parseLong(taskId)));
         return ResponseEntity.ok().body(response);
+    }
+
+    @PutMapping("{taskId}")
+    public ResponseEntity<UpdateTaskResponse> updateUser(@PathVariable(value = "id") Long id,
+                                                         @PathVariable(value = "taskId") Long taskId,
+                                                         @RequestBody @Valid UpdateTaskRequest request){
+        request.setId(id);
+        request.setTaskId(taskId);
+        UpdateTaskResponse response = updateTaskUseCase.updateTask(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }

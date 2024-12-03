@@ -51,7 +51,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
                 .address(request.getAddress())
                 .role(UserRoles.USER_NORMAL)
                 .exp(0)
-                .level(0)
+                .level(1)
                 .build();
         return userRepository.save(newUser);
     }
