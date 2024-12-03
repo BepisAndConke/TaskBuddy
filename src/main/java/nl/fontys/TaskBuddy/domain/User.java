@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import nl.fontys.TaskBuddy.persistence.entity.UserRoles;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -21,6 +23,7 @@ public class User {
     private UserRoles role;
     private Integer exp;
     private Integer level;
+    private List<Task> tasks;
 }
 
 

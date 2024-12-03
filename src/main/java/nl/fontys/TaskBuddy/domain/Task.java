@@ -16,6 +16,8 @@ public class Task {
     private String title;
     private String description;
     private Integer rewardXp;
+    private Integer difficulty;
+    private Integer length;
     private Date createdAt;
     private Date dueDate;
     private Long userId;

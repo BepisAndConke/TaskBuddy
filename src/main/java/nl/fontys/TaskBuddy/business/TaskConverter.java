@@ -14,6 +14,8 @@ public final class TaskConverter {
                 .title(task.getTitle())
                 .description(task.getDescription())
                 .rewardXp(task.getRewardXp())
+                .difficulty(task.getDifficulty())
+                .length(task.getLength())
                 .createdAt(task.getCreatedAt())
                 .dueDate(task.getDueDate())
                 .userId(task.getUser().getId())

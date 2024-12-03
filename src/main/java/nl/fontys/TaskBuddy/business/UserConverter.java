@@ -20,6 +20,10 @@ public final class UserConverter {
                 .role(user.getRole())
                 .exp(user.getExp())
                 .level(user.getLevel())
+                .tasks(user.getTasks()
+                        .stream()
+                        .map(TaskConverter::convert)
+                        .toList())
                 .build();
     }
 

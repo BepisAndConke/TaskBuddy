@@ -51,7 +51,9 @@ public class CreateTaskUseCaseImpl implements CreateTaskUseCase {
                 .description(request.getDescription())
                 .createdAt(Date.from(Instant.now()))
                 .status(TaskStatus.TODO)
-                .dueDate(null)
+                .dueDate(null) //for now
+                .difficulty(request.getDifficulty())
+                .length(request.getLength())
                 .rewardXp(request.getDifficulty() * request.getLength()) //temp
                 .user(userRepository.findById(userId).get())
                 .build();

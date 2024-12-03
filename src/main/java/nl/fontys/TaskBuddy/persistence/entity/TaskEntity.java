@@ -30,6 +30,12 @@ public class TaskEntity {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "difficulty")
+    private Integer difficulty;
+
+    @Column(name = "length")
+    private Integer length;
+
     @Column(name = "reward_xp")
     private Integer rewardXp;
 
