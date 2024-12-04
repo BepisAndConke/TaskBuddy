@@ -1,6 +1,7 @@
 package nl.fontys.TaskBuddy.business.impl.users;
 
 import nl.fontys.TaskBuddy.business.exception.EmailAlreadyExistsException;
+import nl.fontys.TaskBuddy.business.exception.InvalidPasswordException;
 import nl.fontys.TaskBuddy.business.exception.UsernameAlreadyExistsException;
 import nl.fontys.TaskBuddy.business.interf.users.CreateUserUseCase;
 import nl.fontys.TaskBuddy.configuration.security.token.AccessTokenEncoder;
@@ -19,8 +20,11 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class CreateUserUseCaseImpl implements CreateUserUseCase {
     private final UserRepository userRepository;
+
     private final PasswordEncoder passwordEncoder;
     private final AccessTokenEncoder accessTokenEncoder;
+
+    private final PasswordValidator passwordValidator;
 
     @Override
     @Transactional
@@ -31,6 +35,11 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
         if(userRepository.existsByEmail(request.getEmail())) {
             throw new EmailAlreadyExistsException();
+        }
+
+        String errors = passwordValidator.validatePassword(request.getPassword());
+        if(errors.isEmpty()) {
+            throw new InvalidPasswordException(errors);
         }
 
         UserEntity savedUser = saveNewUser(request);
