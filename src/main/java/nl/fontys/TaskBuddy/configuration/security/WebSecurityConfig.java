@@ -37,7 +37,7 @@ public class WebSecurityConfig {
                         configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(registry ->
                         registry.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/api/users/signup").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/users/signup","/api/users/login").permitAll()
 //                                .requestMatchers(HttpMethod.GET, "/api/users/check").permitAll()
 //                                .requestMatchers(HttpMethod.GET, "/api/currencies/**").permitAll()
                                 .requestMatchers("/ws/**").permitAll()
